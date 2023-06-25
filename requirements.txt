@@ -1,0 +1,9 @@
+ape_safe==0.7.1
+eth-brownie==1.19.2
+eth_abi==2.2.0
+eth_utils==1.10.0
+hexbytes==0.2.3
+jsonschema==3.2.0
+pysha3==1.0.2
+pytest==6.2.5
+web3==5.31.1
