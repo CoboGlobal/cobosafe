@@ -9,6 +9,8 @@ contract ArgusAccountHelper is ArgusAuthorizerHelper, IVersion {
     bytes32 public constant NAME = "ArgusAccountHelper";
     uint256 public constant VERSION = 1;
 
+    event ArgusInitialized(address indexed cobosafe, address indexed safe, address indexed factory);
+
     function initArgus(CoboFactory factory, bytes32 coboSafeAccountSalt) external {
         address safe = address(this);
         // 1. Create and enable CoboSafe.
@@ -25,6 +27,8 @@ contract ArgusAccountHelper is ArgusAuthorizerHelper, IVersion {
         BaseAuthorizer authorizer = BaseAuthorizer(factory.create("ArgusRootAuthorizer"));
         authorizer.initialize(safe, address(coboSafe), address(coboSafe));
         coboSafe.setAuthorizer(address(authorizer));
+
+        emit ArgusInitialized(address(coboSafe), safe, address(factory));
     }
 
     function grantRoles(address coboSafeAddress, bytes32[] calldata roles, address[] calldata delegates) external {
