@@ -21,7 +21,7 @@ brownie test
 
 # Documentations
 
-Read the documents [here](./docs/1_overview.md). 
+Read the documents [here](./docs/cn/1_overview.md). 
 
 Head to learn more about Cobo Safe and Cobo Argus at [Cobo Developer Hub](https://developers.cobo.com/smart-contract-custody/coboargus).
 
