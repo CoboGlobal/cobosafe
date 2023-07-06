@@ -18,7 +18,7 @@
 - 允许调用 MasterChef 合约的 `withdraw()` 方法，且 `pid` 参数限制值为 `3`
 
 
-```
+```solidity
 // SPDX-License-Identifier: LGPL-3.0-only
 pragma solidity ^0.8.19;
 

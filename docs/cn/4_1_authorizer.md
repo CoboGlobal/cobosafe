@@ -3,7 +3,7 @@
 `Authorizer` 是 `Cobo Safe` 中进行访问控制的合约模块。所有通过 `execTransaction()` 发起的交易，都应该经过 `Cobo Account` 中注册的 `Authorizer` 的检查后才能继续执行。
 
 具体来说，`Authorizer` 应该实现如下接口:
-```
+```solidity
 interface IAuthorizer {
     function flag() external view returns (uint256 authFlags);
 
@@ -29,7 +29,7 @@ interface IAuthorizer {
 - **flag** 上述 4 个方法不一定是同时存在的，可通过 flag 进行标识。
 
 在上述方法中，使用如下结构体来表示待处理的交易
-```
+```solidity
 struct TransactionData {
     address from; // `msg.sender` who performs the transaction a.k.a wallet address.
     address delegate; // Delegate who calls executeTransactions().
@@ -54,7 +54,7 @@ struct TransactionData {
 - 在交易发生前，检查交易中转账的 ETH 要小于 1000
 - 在交易完成后，检查交易发起者（也就是钱包地址）的 ETH 余额要大于 10000
 
-```js
+```solidity
 // SPDX-License-Identifier: LGPL-3.0-only
 pragma solidity ^0.8.19;
 
@@ -92,3 +92,14 @@ contract SampleAuthorizer is BaseAuthorizer {
     }
 }
 ```
+
+其他开发建议
+- 如果 `BaseACL` 可以满足您的开发需求，请直接使用 `BaseACL`。如果不能，请阅读接下来的建议。
+- 开发者只需实现 `IAuthorizer` 接口就能实现一个 Cobo Safe 框架可兼容的 Authorizer。但更推荐的方式是继承 `BaseAuthorizer`。 `BaseAuthorizer` 内实现了一些常用的内部方法，并且进行了调用方的检查，更加安全。
+- `BaseAuthorizer` 的 `caller` 指调用 `Authorizer` 的合约，通常为上级 `Authorizer` 或者 `Cobo Account`。
+- `BaseAuthorizer` 的 `owner` 为可以修改 `Authorizer` 配置的地址，通常为 `Cobo Account` 对应的 wallet 地址。在 Argus 中，这个地址通常为 Gnosis Safe 钱包的地址。
+- 关于 `Check` 和 `Process`：
+    - 在 `preExecCheck` `postExecCheck` 中建议只进行数据检查，不进行数据更新（如 storage 的写入）。
+    - 在 `preExecProcess` `postExecProcess` 中建议只进行数据更新，不进行数据检查。
+    - 4 个函数大多数时候不会都被使用到（大多数情况只使用 `preExecCheck`），可以通过设置 `flag` 来标识您开发的 `Authorizer` 正常工作流程中需要的接口，减少整体权限检查流程的复杂度，从而节约 gas。
+    - `preExecCheck` `postExecCheck` 中最好不要使用 `revert` 来表示拒绝，推荐的方式是使用 `authData.result` 返回值权限验证的结果。

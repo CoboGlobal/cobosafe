@@ -5,7 +5,7 @@
 `Role Manager` 是 `Cobo Safe` 中用于管理 `Delegate` 与 `Role` 的映射关系。
 
 `Role Manager` 应实现如下接口。
-```
+```solidity
 interface IRoleManager {
     function getRoles(address delegate) external view returns (bytes32[] memory);
 

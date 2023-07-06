@@ -190,7 +190,6 @@ abstract contract BaseAccount is IAccount, BaseOwnable {
         TransactionResult memory callResult,
         AuthorizerReturnData memory predata
     ) internal virtual returns (AuthorizerReturnData memory authData) {
-        _revertIfTxFails(callResult);
         authData = IAuthorizer(authorizer).postExecCheck(transaction, callResult, predata);
         require(authData.result == AuthResult.SUCCESS, authData.message);
     }
@@ -229,6 +228,8 @@ abstract contract BaseAccount is IAccount, BaseOwnable {
 
         // 3. Execute the transaction.
         result = _executeTransaction(transaction);
+
+        if (!transaction.flag.allowsRevert()) _revertIfTxFails(result);
 
         // 4. Do post check, revert the entire txn if failed.
         AuthorizerReturnData memory postData;

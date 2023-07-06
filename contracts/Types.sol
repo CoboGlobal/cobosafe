@@ -43,9 +43,14 @@ struct TransactionResult {
 
 library TxFlags {
     uint256 internal constant DELEGATE_CALL_MASK = 0x1; // 1 for delegatecall, 0 for call
+    uint256 internal constant ALLOW_REVERT_MASK = 0x2; // 1 for allow, 0 for not
 
     function isDelegateCall(uint256 flag) internal pure returns (bool) {
         return flag & DELEGATE_CALL_MASK > 0;
+    }
+
+    function allowsRevert(uint256 flag) internal pure returns (bool) {
+        return flag & ALLOW_REVERT_MASK > 0;
     }
 }
 

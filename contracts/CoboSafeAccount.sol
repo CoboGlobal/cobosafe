@@ -30,7 +30,7 @@ contract CoboSafeAccount is BaseAccount {
     using TxFlags for uint256;
 
     bytes32 public constant NAME = "CoboSafeAccount";
-    uint256 public constant VERSION = 1;
+    uint256 public constant VERSION = 2;
 
     constructor(address _owner) BaseAccount(_owner) {}
 

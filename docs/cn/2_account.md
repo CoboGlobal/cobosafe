@@ -2,7 +2,7 @@
 
 `Cobo Account` 是 `Cobo Safe` 框架下抽象的一种智能合约钱包账户。`Cobo Account` 合约应该实现 `execTransaction()` 方法，如下：
 
-```
+```solidity
 struct CallData {
     uint256 flag; // 0x1 delegate call, 0x0 call.
     address to;

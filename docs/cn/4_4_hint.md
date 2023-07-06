@@ -3,7 +3,7 @@
 对于有些 Authorizer，进行权限检查的逻辑比较复杂，gas 消耗较高。Authorizer 开发者允许用户在交易中添加一些提示性的附加数据来加速检查过程，节约 gas。这些附加数据即为 `Hint`。
 
 发起交易时可使用 `CallData` 结构体中的 `hint` 字段来传入这个 `Hint`。 
-```
+```solidity
 struct CallData {
     uint256 flag; // 0x1 delegate call, 0x0 call.
     address to;

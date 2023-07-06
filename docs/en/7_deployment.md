@@ -1,0 +1,125 @@
+# Deployed Smart Contracts
+
+The majority of smart contracts in the `Cobo Safe` framework are deployed as non-upgradable [`Minimal Proxy Contracts`](https://eips.ethereum.org/EIPS/eip-1167).
+
+The `Cobo Factory` contract, which has been deployed across six blockchains, is used to implement `Cobo Safe` smart contracts:
+
+```
+0xC0B00000e19D71fA50a9BB1fcaC2eC92fac9549C
+```
+
+You can examine the latest implementation registered in `Cobo Factory` with the `factory` command of the [`pycobosafe`](https://github.com/coboglobal/pycobosafe) tool. As of July 3, 2023, the following `Cobo Safe` smart contracts have been successfully deployed.
+
+**Ethereum Mainnet**:
+
+```
+  ArgusAccountHelper: 0xB4d7111432C2827B58331802E1759e9c91e83282
+  ArgusViewHelper: 0xF97BB9AF9FE6A68b324EdBcd0fE698E631F5113A
+  CoboSafeAccount: 0xE7168444CF4c25800C2817BFDC6dcf17C261994d
+  FlatRoleManager: 0x2F2FDDb984cdEC4318D8d87BC70821e9B9Ed8e7E
+  ArgusRootAuthorizer: 0x7Ba3CC542b70f8F1D6282dae222235D42CFd34CD
+  FuncAuthorizer: 0x92DdB2B7D17FF42078AFFf98721F6d1E38083ED6
+  TransferAuthorizer: 0x2148c4F124029c3A18CFcC7A86A67A5Bf4D88658
+  1inchV5Authorizer: 0xfecE55912861a401738604c52998604ba45115a1
+  ParaswapBotAuthorizer: 0x47219e2f187a145De306f0ca882A0304D0AE912e
+  ZeroXBotAuthorizer: 0xC97d4AA85e7F3c7553555608A83Cb973E68d48f3
+  LidoWithdrawRequestAuthorizer: 0xAEadb2ac5E24a84fcEafFee9C6CDB214016cbE8d
+  StargateClaimAuthorizer: 0x818ED168Ab85648EF2404Ad09AB6D28C27bE6E24
+  StargateDepositAuthorizer: 0x0cfaC7992143056705B4d2710aA60528A8a69ae9
+  StargateWithdrawAuthorizer: 0xfF0260Ca377183d27169CCa3BEACac82601522E9
+  ConvexAuthorizer: 0xe2bc41Cd63ae7faFCacFC58f643753D571fe42EB
+  ConvexFraxAuthorizer: 0xf47e86bB65b2058aE21F39016b64D4EBd7396723
+  LybraMintAuthorizer: 0x7A9aBCE81C6855F33FCbA924838Ce0f3e432CCC9
+  LybraWithdrawAuthorizer: 0x03b6F925841B031356F83EDCe5263e1Fd15e4b99
+```
+
+**Optimism**:
+
+```
+  ArgusAccountHelper: 0x10eD590973dbd028556528AEbA962240C47F1963
+  ArgusViewHelper: 0x41e5C89Bb2207AaF9ae07441f64b0b822aB8a6ac
+  CoboSafeAccount: 0x37E369301beddd49574d22A7fa034d596766004B
+  FlatRoleManager: 0x3D89555e239209F6Aa708520302eD8B4eD859791
+  FuncAuthorizer: 0x54815296e3b5ed59Ec50be739Fa7CcA4E8de5eC0
+  TransferAuthorizer: 0x8C230beB7649b016e52E85CF50777d3253068d6a
+  1inchV5Authorizer: 0x07f2AD9A6299E89019793706Ae39A780b49CDdDc
+  ParaswapBotAuthorizer: 0x7Ba3CC542b70f8F1D6282dae222235D42CFd34CD
+  ArgusRootAuthorizer: 0xABA1D868D89F29b46499E84C73BdE47481Af8074
+  ZeroXBotAuthorizer: 0x1552C84f6f09B6117dD95996d8220B37Ca6BDC4F
+  StargateClaimAuthorizer: 0xe6f35629e03E755CC2f977DaAC0E45663B66c8E2
+  StargateDepositAuthorizer: 0x73a08503931Bd6763C4CD60013802025F1fCc3D2
+  StargateWithdrawAuthorizer: 0x58bF21e7a425c92C4Af55928FfA9b28a38f7d2cc
+```
+
+**BNB Smart Chain**:
+
+```
+  TransferAuthorizer: 0x1dB643a720856b1406499e7046414D317A5a6d4b
+  ArgusRootAuthorizer: 0x2CdDc6897BaC48Aa25AA4bF640D1dfB7495c83CA
+  ZeroXBotAuthorizer: 0x014cdaFcE570d84c0EB1157564A97602dEDb1aB1
+  StargateWithdrawAuthorizer: 0x9f0910e9c31cC0442A9188264630Ef9E0dC51969
+  ArgusAccountHelper: 0x912f37882e573Da600EdDf083d16526A841a5474
+  CoboSafeAccount: 0x16119BF35b764e6AB83DEDA11719F5a5Bb0C4dfD
+  FlatRoleManager: 0x5311Cc807625F54Eb810a4a0bEa5B4d2533961F0
+  FuncAuthorizer: 0x6DDe0424ae9ADaf5d305e20720Be6B9BC3f5ae8a
+  1inchV5Authorizer: 0x44362a387f5243be4a0355c706200ad2ea9b3CB7
+  ParaswapBotAuthorizer: 0xD566FD8BF501Cd585Ed153Db828dcf880c1fE3fd
+  StargateClaimAuthorizer: 0xbd9bDfF5636709cA9ff6a1598896D50Ce9d3E4cC
+  StargateDepositAuthorizer: 0x96BF0122E8212A6A5296c981c7ef062EfE4F8E7f
+  ArgusViewHelper: 0x2f5F6B42678704B5A738456D1320327cea95ae09
+```
+
+**Polygon**:
+
+```
+  ArgusAccountHelper: 0x725A581c9fC882f0C66c112B1CFf2AeAF502AA36
+  ArgusViewHelper: 0x20D0b245f72018c0EC105eCEDd11400124b518DB
+  FlatRoleManager: 0x16119BF35b764e6AB83DEDA11719F5a5Bb0C4dfD
+  FuncAuthorizer: 0x6DDe0424ae9ADaf5d305e20720Be6B9BC3f5ae8a
+  TransferAuthorizer: 0x9dB7299bBDDDBd30ac35A84Ca178a7E737357892
+  ArgusRootAuthorizer: 0xc53d529e5aAD94E1fb3C70572968783Daa31c803
+  ZeroXBotAuthorizer: 0xFBaeaee00d7031dd3dE73828DE143Cf7526f1A42
+  1inchV5Authorizer: 0xD566FD8BF501Cd585Ed153Db828dcf880c1fE3fd
+  CoboSafeAccount: 0x9e9b19394cD85d2620af2689B16B0a95F69176Dc
+  ParaswapBotAuthorizer: 0x652F621315903b7B30D1BD9e05D24030d69e63eE
+  StargateClaimAuthorizer: 0x2d9899Be6d1e57E3ee61Ee20DFb246fF22a0fdff
+  StargateDepositAuthorizer: 0x294b34Ec45429afE5b2DdC700C850032d87a3766
+  StargateWithdrawAuthorizer: 0x376819712D23F3a3775C416a1Ad5E7a8a05487d4
+```
+
+**Arbitrum**:
+
+```
+  ArgusAccountHelper: 0x33Ea27dBccE4C06AC8262229FF755FdD5ef5aEfd
+  ArgusViewHelper: 0x7677E361aEC4ee6e13D27806BC914Dd35c0Da0D8
+  CoboSafeAccount: 0x55059108c6b7F4f6085f485863EFE3e34D493368
+  FlatRoleManager: 0x37c43Df81B967d9Ee54bCcc0202bC8962bF7c3c2
+  FuncAuthorizer: 0x929fEA220AeEb5e09508fc1581202FeD84DcFD56
+  TransferAuthorizer: 0x1552C84f6f09B6117dD95996d8220B37Ca6BDC4F
+  ArgusRootAuthorizer: 0x87F038C515f58edc5b982914dd402bb71cca9b06
+  ZeroXBotAuthorizer: 0x47026eF8D0b7FD1dba7a0acd3BD33B698BEca9de
+  1inchV5Authorizer: 0xE7CA78dc87B54EF3e0Ed82cC77F449772C469414
+  ParaswapBotAuthorizer: 0xe6f35629e03E755CC2f977DaAC0E45663B66c8E2
+  StargateClaimAuthorizer: 0x73a08503931Bd6763C4CD60013802025F1fCc3D2
+  StargateDepositAuthorizer: 0x58bF21e7a425c92C4Af55928FfA9b28a38f7d2cc
+  StargateWithdrawAuthorizer: 0xABA1D868D89F29b46499E84C73BdE47481Af8074
+  GmxGlpAuthorizer: 0x5cf9ad70AbC53dda7f99Cd3C651DC238F5Dc700B
+```
+
+**Avalanche:**
+
+```
+  ArgusAccountHelper: 0xC97d4AA85e7F3c7553555608A83Cb973E68d48f3
+  ArgusViewHelper: 0xE016BdEEd6f31A3C509621104bFE103fa7476B12
+  CoboSafeAccount: 0x7677E361aEC4ee6e13D27806BC914Dd35c0Da0D8
+  FlatRoleManager: 0x55059108c6b7F4f6085f485863EFE3e34D493368
+  FuncAuthorizer: 0x37c43Df81B967d9Ee54bCcc0202bC8962bF7c3c2
+  TransferAuthorizer: 0x929fEA220AeEb5e09508fc1581202FeD84DcFD56
+  ZeroXBotAuthorizer: 0x07f2AD9A6299E89019793706Ae39A780b49CDdDc
+  1inchV5Authorizer: 0x7Ba3CC542b70f8F1D6282dae222235D42CFd34CD
+  ParaswapBotAuthorizer: 0x83C7513604A7a4BfCA7A94f916bE7F2bA6b695e9
+  StargateClaimAuthorizer: 0xb1314e31a606ecd8F30c29b91493885294453BA3
+  StargateDepositAuthorizer: 0x30c4a1a21A14281c8EB5AE75fd874359D01200ED
+  StargateWithdrawAuthorizer: 0x59E3C907abe047f731e570B56D671EdFE57d2277
+  ArgusRootAuthorizer: 0x88c8575825A1BED902d284cCDF410A56d59074C0
+```
