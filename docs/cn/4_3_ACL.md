@@ -1,4 +1,4 @@
-# BaseACL
+## BaseACL
 
 继承 `BaseAuthorizer` 进行交易的访问控制时，需要自行对交易的 `data` 进行 `abi.decode` 解码。为了方便处理这种情况， `Cobo Safe` 框架中继承 `BaseAuthorizer` 实现了 `BaseACL`。`BaseACL` 使用了一些定义同名函数的编码技巧，可以使开发者免除编写繁琐的 ABI 解码代码的烦恼。
 

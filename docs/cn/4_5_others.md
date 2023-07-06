@@ -1,8 +1,8 @@
-# 其他 Authorizer
+## 其他 Authorizer
 
 `Cobo Safe` 中已经集成了几种常用的 `Authorizer`，有此类需求的用户不需要单独开发。
 
-## FuncAuthorizer
+### FuncAuthorizer
 
 `FuncAuthorizer` 是一类简单但实用的 `Authorizer`。其检查的内容为合约调用地址及方法。
 
@@ -14,13 +14,13 @@
 
 需要注意的是，上述授权仅限制了合约地址与方法，而无法限制合约调用时的参数。比如上述操作不能限制  `USDT` 转账的收款人与转账金额。如果要对上述内容进行限制，则需要编写 ACL 来实现更细粒度的访问控制。
 
-## TransferAuthorizer
+### TransferAuthorizer
 
 转账是区块链中最常见的操作。`TransferAuthorizer` 允许用户通过 `addTokenReceivers` 方法设置 `币种` `收款人` 对。被授权的 `Delegate` 可以将授权的币种直接转账给收款人。
 
 其中 `币种` 对于 `ERC20 Token` 即为 token 的地址。对于 ETH/BNB 等链原生币种则使用 `0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE` 表示。
 
-## ArgusRootAuthorizer
+### ArgusRootAuthorizer
 
 `ArgusRootAuthorizer` 是  Argus 平台上的默认 `Authorizer`。`ArgusRootAuthorizer` 本身并不进行具体的权限检查，而是维护了一系列`子 Authorizer`。
 

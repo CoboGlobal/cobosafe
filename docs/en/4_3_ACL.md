@@ -1,4 +1,4 @@
-# BaseACL
+## BaseACL
 
 To implement access controls for a contract call using `BaseAuthorizer`, developers would typically need to manually write `abi.decode` codes in order to decode [complicated transaction data](https://docs.soliditylang.org/en/latest/abi-spec.html).
 

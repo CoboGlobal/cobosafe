@@ -1,4 +1,3 @@
-
 ## Hint
 
 You can add additional data, referred to as `hint`, during a smart contract call in order to accelerate the validation process and save on gas fees.

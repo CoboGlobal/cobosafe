@@ -1,6 +1,6 @@
 # Overview
 
-`Cobo Safe` is an open-source access control framework for smart contract wallets. Developed by Cobo, this framework allows the `Owner` of a smart contract wallet to delegate certain operations (e.g., transferring tokens, interacting with specific smart contracts) to the `Delegate`. The `Delegate` can then perform authorized wallet operations on behalf of the `Owner`.
+`Cobo Safe` is an [open-source](https://github.com/CoboGlobal/cobosafe) access control framework for smart contract wallets. Developed by Cobo, this framework allows the `Owner` of a smart contract wallet to delegate certain operations (e.g., transferring tokens, interacting with specific smart contracts) to the `Delegate`. The `Delegate` can then perform authorized wallet operations on behalf of the `Owner`.
 
 The `Cobo Safe` framework includes the following components:
 

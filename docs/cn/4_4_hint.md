@@ -1,4 +1,4 @@
-# Hint
+## Hint
 
 对于有些 Authorizer，进行权限检查的逻辑比较复杂，gas 消耗较高。Authorizer 开发者允许用户在交易中添加一些提示性的附加数据来加速检查过程，节约 gas。这些附加数据即为 `Hint`。
 
