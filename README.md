@@ -23,7 +23,7 @@ brownie test
 
 Read the documents [here](./docs/README.md). 
 
-Head to learn more about Cobo Safe and Cobo Argus at [Cobo Developer Hub](https://developers.cobo.com/smart-contract-custody/cobosafe).
+Head to learn more about Cobo Safe and Cobo Argus at [Cobo Developer Hub](https://www.cobo.com/developers/smart-contract-wallet/cobosafe).
 
 # License
 
