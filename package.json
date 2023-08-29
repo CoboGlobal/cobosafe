@@ -1,0 +1,14 @@
+{
+  "name": "cobosafe",
+  "version": "0.2.0",
+  "description": "Cobo Safe is an on-chain access-control framework for smart contract wallets.",
+  "files": [
+    "interfaces",
+    "contracts"
+  ],
+  "scripts": {
+    "compile": "brownie compile"
+  },
+  "author": "argussupport@cobo.com",
+  "license": "LGPL-3.0"
+}
