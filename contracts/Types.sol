@@ -58,6 +58,7 @@ library AuthType {
     bytes32 internal constant FUNC = "FunctionType";
     bytes32 internal constant TRANSFER = "TransferType";
     bytes32 internal constant DEX = "DexType";
+    bytes32 internal constant FARMING = "FarmingType";
     bytes32 internal constant LENDING = "LendingType";
     bytes32 internal constant COMMON = "CommonType";
     bytes32 internal constant SET = "SetType";
