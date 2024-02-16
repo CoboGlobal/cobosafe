@@ -8,6 +8,8 @@ abstract contract FarmingBaseACL is BaseACL {
     using EnumerableSet for EnumerableSet.UintSet;
     using EnumerableSet for EnumerableSet.AddressSet;
 
+    bytes32 public constant override TYPE = AuthType.FARMING;
+
     //roles => pool id whitelist
     EnumerableSet.UintSet farmPoolIdWhitelist;
     EnumerableSet.AddressSet farmPoolAddressWhitelist;
