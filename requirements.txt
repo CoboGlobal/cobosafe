@@ -1,5 +1,5 @@
 eth-brownie==1.19.2
-eth_abi==2.2.0
+eth_abi==5.0.1
 eth_utils==1.10.0
 hexbytes==0.2.3
 pytest==6.2.5
