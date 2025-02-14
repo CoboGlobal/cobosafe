@@ -29,3 +29,5 @@ dependencies:
   - OpenZeppelin/openzeppelin-contracts-upgradeable@4.8.0
 dev_deployment_artifacts:
   - true
+
+dotnet: .env

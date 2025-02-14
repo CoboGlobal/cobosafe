@@ -19,6 +19,19 @@ brownie networks import ./network-config.yaml True
 brownie test
 ```
 
+# Deploy
+
+```sh
+# Set env and SCAN TOKEN 
+touch .env
+
+# Add account
+brownie accounts new ACCOUNT_ID
+
+# Deploy
+brownie run deploy.py FUNC_NAME --network NETWORK_ID
+```
+
 # Documentations
 
 Read the documents [here](./docs/README.md). 

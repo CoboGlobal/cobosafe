@@ -339,3 +339,17 @@ live:
     id: optimism-test
     multicall2: '0x2DC0E2aa608532Da689e89e237dF582B783E552C'
     name: Kovan
+- name: Base
+  networks:
+  - chainid: 8453
+    explorer: https://api.basescan.org/api
+    host: https://mainnet.base.org
+    id: base-main
+    multicall2: '0xfEE958Fa595B4478cea7560C91400A98b83d6C91'
+    name: Mainnet
+  - chainid: 84532
+    explorer: https://api-sepolia.basescan.org/api
+    host: https://sepolia.base.org
+    id: base-test
+    multicall2: '0x1E2b697De902957793A95E7200fF7fde1349225D'
+    name: Base Sepolia
