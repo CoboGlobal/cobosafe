@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: LGPL-3.0-only
 pragma solidity ^0.8.19;
 
-import "../../base/BaseACL.sol";
+import "../../base/BaseSimpleACL.sol";
 
-contract LybraMintAuthorizer is BaseACL {
+contract LybraMintAuthorizer is BaseSimpleACL {
     bytes32 public constant NAME = "LybraMintAuthorizer";
     uint256 public constant VERSION = 1;
 
-    constructor(address _owner, address _caller) BaseACL(_owner, _caller) {}
+    constructor(address _owner, address _caller) BaseSimpleACL(_owner, _caller) {}
 
     address public constant Lybra = 0x97de57eC338AB5d51557DA3434828C5DbFaDA371;
 

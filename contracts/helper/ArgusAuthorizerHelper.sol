@@ -6,6 +6,7 @@ import "../role/FlatRoleManager.sol";
 import "../auth/ArgusRootAuthorizer.sol";
 import "../auth/FuncAuthorizer.sol";
 import "../auth/TransferAuthorizer.sol";
+import "../auth/ApproveAuthorizer.sol";
 import "../auth/DEXBaseACL.sol";
 
 abstract contract ArgusAuthorizerHelper {
@@ -79,5 +80,23 @@ abstract contract ArgusAuthorizerHelper {
         if (_swapOutTokens.length > 0) {
             authorizer.removeSwapOutTokens(_swapOutTokens);
         }
+    }
+
+    function setApproveAuthorizerParams(
+        address authorizerAddress,
+        ApproveAuthorizer.TokenSpender[] calldata tokenSpenders
+    ) public {
+        if (tokenSpenders.length == 0) return;
+        ApproveAuthorizer authorizer = ApproveAuthorizer(authorizerAddress);
+        authorizer.addTokenSpenders(tokenSpenders);
+    }
+
+    function unsetApproveAuthorizerParams(
+        address authorizerAddress,
+        ApproveAuthorizer.TokenSpender[] calldata tokenSpenders
+    ) external {
+        if (tokenSpenders.length == 0) return;
+        ApproveAuthorizer authorizer = ApproveAuthorizer(authorizerAddress);
+        authorizer.removeTokenSpenders(tokenSpenders);
     }
 }

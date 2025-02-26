@@ -149,23 +149,33 @@ abstract contract BaseAuthorizer is IAuthorizer, BaseOwnable {
         return IRoleManager(roleManager).hasRole(transaction.delegate, role);
     }
 
-    /// @dev Override these functions to while extending this contract.
+    /// @dev Override these functions to extend this contract.
     function _preExecCheck(
         TransactionData calldata transaction
-    ) internal virtual returns (AuthorizerReturnData memory authData) {}
+    ) internal virtual returns (AuthorizerReturnData memory authData) {
+        (transaction);
+        authData.result = AuthResult.SUCCESS;
+    }
 
     function _postExecCheck(
         TransactionData calldata transaction,
         TransactionResult calldata callResult,
         AuthorizerReturnData calldata preData
-    ) internal virtual returns (AuthorizerReturnData memory) {}
+    ) internal virtual returns (AuthorizerReturnData memory authData) {
+        (transaction, callResult, preData);
+        authData.result = AuthResult.SUCCESS;
+    }
 
-    function _preExecProcess(TransactionData calldata transaction) internal virtual {}
+    function _preExecProcess(TransactionData calldata transaction) internal virtual {
+        (transaction);
+    }
 
     function _postExecProcess(
         TransactionData calldata transaction,
         TransactionResult calldata callResult
-    ) internal virtual {}
+    ) internal virtual {
+        (transaction, callResult);
+    }
 
     /// @dev Override this if you implement new type of authorizer.
     function TYPE() external view virtual returns (bytes32) {

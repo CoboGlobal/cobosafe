@@ -35,3 +35,22 @@ function getAddresses() view returns (address stakingPool, address router, addre
         revert("no chain id is matched");
     }
 }
+
+
+
+function getRouterETHAddresses() view returns (address routerETH) {
+    uint256 chainId = block.chainid;
+    if (chainId == 1) {
+        routerETH = 0x150f94B44927F078737562f0fcF3C95c01Cc2376;
+    } else if (chainId == 42161) {
+        routerETH = 0xbf22f0f184bCcbeA268dF387a49fF5238dD23E40;
+    } else if (chainId == 10) {
+        routerETH = 0xB49c4e680174E331CB0A7fF3Ab58afC9738d5F8b;
+    } else if (chainId == 8453) {
+        routerETH = 0x50B6EbC2103BFEc165949CC946d739d5650d7ae4;
+    } else if (chainId == 59144) {
+        routerETH = 0x8731d54E9D02c286767d56ac03e8037C07e01e98;
+    } else {
+        revert("no chain id is matched");
+    }
+}

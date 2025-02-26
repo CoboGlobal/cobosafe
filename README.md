@@ -17,13 +17,22 @@ brownie networks import ./network-config.yaml True
 
 # Run the test
 brownie test
+
+# Run forge test
+git submodule init
+
+# Or you can install lib with forge
+# forge install OpenZeppelin/openzeppelin-contracts@v4.8.0
+# forge remappings > remappings.txt
+
+forge test
 ```
 
 # Documentations
 
 Read the documents [here](./docs/README.md). 
 
-Head to learn more about Cobo Safe and Cobo Argus at [Cobo Developer Hub](https://www.cobo.com/developers/smart-contract-wallet/cobosafe).
+Head to learn more about Cobo Safe and Cobo Argus at [Cobo Developer Hub](https://www.cobo.com/developers).
 
 # License
 

@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: LGPL-3.0-only
 pragma solidity ^0.8.19;
 
-import "../base/BaseACL.sol";
+import "../base/BaseSimpleACL.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 
-abstract contract FarmingBaseACL is BaseACL {
+abstract contract FarmingBaseACL is BaseSimpleACL {
     using EnumerableSet for EnumerableSet.UintSet;
     using EnumerableSet for EnumerableSet.AddressSet;
 
@@ -18,7 +18,7 @@ abstract contract FarmingBaseACL is BaseACL {
     event AddPoolIdWhitelist(uint256 indexed _poolId, address indexed user);
     event RemovePoolIdWhitelist(uint256 indexed _poolId, address indexed user);
 
-    constructor(address _owner, address _caller) BaseACL(_owner, _caller) {}
+    constructor(address _owner, address _caller) BaseSimpleACL(_owner, _caller) {}
 
     function addPoolIds(uint256[] calldata _poolIds) external onlyOwner {
         for (uint256 i = 0; i < _poolIds.length; i++) {

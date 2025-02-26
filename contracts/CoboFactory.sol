@@ -2,6 +2,7 @@
 pragma solidity ^0.8.19;
 
 import "@openzeppelin/contracts/proxy/Clones.sol";
+import "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 
 import "./base/BaseOwnable.sol";
 
@@ -91,7 +92,11 @@ contract CoboFactory is BaseOwnable {
         }
     }
 
-    function getCreate2Address(address creator, bytes32 name, bytes32 salt) external view returns (address instance) {
+    function getCreate2Address(
+        address creator,
+        bytes32 name,
+        bytes32 salt
+    ) external view virtual returns (address instance) {
         address implementation = getLatestImplementation(name);
         if (implementation == address(0)) return address(0);
         salt = keccak256(abi.encode(creator, salt));
@@ -101,14 +106,14 @@ contract CoboFactory is BaseOwnable {
     /// External functions.
 
     /// @dev Create EIP 1167 proxy.
-    function create(bytes32 name) public returns (address instance) {
+    function create(bytes32 name) public virtual returns (address instance) {
         address implementation = _getLatestImplStrict(name);
         instance = Clones.clone(implementation);
         emit ProxyCreated(msg.sender, name, implementation, instance);
     }
 
     /// @dev Create EIP 1167 proxy with create2.
-    function create2(bytes32 name, bytes32 salt) public returns (address instance) {
+    function create2(bytes32 name, bytes32 salt) public virtual returns (address instance) {
         address implementation = _getLatestImplStrict(name);
 
         // Add msg.sender to the salt so no address collissions will occur between different users.
@@ -140,5 +145,35 @@ contract CoboFactory is BaseOwnable {
         latestImplementations[name] = impl;
         implementations[name].push(impl);
         emit ImplementationAdded(name, impl);
+    }
+}
+
+contract CoboFactoryZKSync is CoboFactory {
+    constructor(address _owner) CoboFactory(_owner) {}
+
+    /// @dev Get create2 address from zkSync ContractDeployer contract.
+    function getCreate2Address(
+        address creator,
+        bytes32 name,
+        bytes32 salt
+    ) external view override returns (address instance) {
+        revert("Not supported on zkSync");
+    }
+
+    /// @dev Create EIP 1967 proxy.
+    function create(bytes32 name) public override returns (address instance) {
+        address implementation = _getLatestImplStrict(name);
+        instance = address(new ERC1967Proxy(implementation, new bytes(0)));
+        emit ProxyCreated(msg.sender, name, implementation, instance);
+    }
+
+    /// @dev Create EIP 1967 proxy with create2.
+    function create2(bytes32 name, bytes32 salt) public override returns (address instance) {
+        address implementation = _getLatestImplStrict(name);
+
+        // Add msg.sender to the salt so no address collissions will occur between different users.
+        salt = keccak256(abi.encode(msg.sender, salt));
+        instance = address(new ERC1967Proxy{salt: salt}(implementation, new bytes(0)));
+        emit ProxyCreated(msg.sender, name, implementation, instance);
     }
 }

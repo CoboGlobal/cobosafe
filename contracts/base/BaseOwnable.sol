@@ -4,10 +4,14 @@ pragma solidity ^0.8.19;
 import "../Errors.sol";
 import "./BaseVersion.sol";
 
+import {IERC20, SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+
 /// @title BaseOwnable - Simple ownership access control contract.
 /// @author Cobo Safe Dev Team https://www.cobo.com/
 /// @dev Can be used in both proxy and non-proxy mode.
 abstract contract BaseOwnable is BaseVersion {
+    using SafeERC20 for IERC20;
+
     address public owner;
     address public pendingOwner;
     bool private initialized = false;
@@ -59,6 +63,16 @@ abstract contract BaseOwnable is BaseVersion {
     /// @notice Make the contract immutable.
     function renounceOwnership() external onlyOwner {
         _setOwner(address(0));
+    }
+
+    /// @notice Rescue and transfer assets locked in this contract.
+    function rescue(address token, address to) external onlyOwner {
+        if (token == address(0)) {
+            (bool success, ) = payable(to).call{value: address(this).balance}("");
+            require(success, "ETH transfer failed");
+        } else {
+            IERC20(token).safeTransfer(to, IERC20(token).balanceOf(address(this)));
+        }
     }
 
     // Internal functions

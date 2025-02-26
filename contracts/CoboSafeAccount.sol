@@ -21,6 +21,8 @@ interface IGnosisSafe {
 
     function enableModule(address module) external;
 
+    function disableModule(address prevModule, address module) external;
+
     function isModuleEnabled(address module) external view returns (bool);
 }
 

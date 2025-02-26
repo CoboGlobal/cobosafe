@@ -8,11 +8,12 @@ import "../base/BaseAuthorizer.sol";
 import "../auth/ArgusRootAuthorizer.sol";
 import "../auth/FuncAuthorizer.sol";
 import "../auth/TransferAuthorizer.sol";
+import "../auth/ApproveAuthorizer.sol";
 import "../auth/DEXBaseACL.sol";
 
 contract ArgusViewHelper is IVersion {
     bytes32 public constant NAME = "ArgusViewHelper";
-    uint256 public constant VERSION = 1;
+    uint256 public constant VERSION = 2;
 
     struct ModuleInfo {
         address moduleAddress;
@@ -132,5 +133,21 @@ contract ArgusViewHelper is IVersion {
         DEXBaseACL authorizer = DEXBaseACL(dexAuthorizerAddress);
         swapInTokens = authorizer.getSwapInTokens();
         swapOutTokens = authorizer.getSwapOutTokens();
+    }
+
+    struct ApproveAuthorizerInfo {
+        address token;
+        address[] spenders;
+    }
+
+    function getApproveAuthorizerParams(
+        address approveAuthorizerAddress
+    ) external view returns (ApproveAuthorizerInfo[] memory authorizerInfos) {
+        ApproveAuthorizer authorizer = ApproveAuthorizer(approveAuthorizerAddress);
+        address[] memory tokens = authorizer.getAllToken();
+        authorizerInfos = new ApproveAuthorizerInfo[](tokens.length);
+        for (uint i = 0; i < tokens.length; i++) {
+            authorizerInfos[i] = ApproveAuthorizerInfo(tokens[i], authorizer.getTokenSpenders(tokens[i]));
+        }
     }
 }

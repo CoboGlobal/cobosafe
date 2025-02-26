@@ -6,8 +6,6 @@ import "../contracts/Types.sol";
 interface IAuthorizer {
     function flag() external view returns (uint256 authFlags);
 
-    function setCaller(address _caller) external;
-
     function preExecCheck(TransactionData calldata transaction) external returns (AuthorizerReturnData memory authData);
 
     function postExecCheck(

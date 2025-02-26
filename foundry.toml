@@ -1,0 +1,52 @@
+[profile.default]
+src = "contracts"
+out = "out"
+libs = ["lib"]
+test = 'tests_forge'
+script = 'scripts_forge'
+
+solc = "0.8.19"
+via_ir = true
+optimizer = true
+optimizer_runs = 200
+evm_version = "paris"
+
+fs_permissions = [{ access = "read-write", path = "./scripts_forge/deployments"}]
+no-match-path = 'CaclTestSuite.sol'
+
+[rpc_endpoints]
+optimism = "${OP_RPC}"
+base = "${BASE_RPC}"
+xdai = "${GNOSIS_RPC}"
+polygon = "${POLYGON_RPC}"
+arbitrum = "${ARB_RPC}"
+mainnet = "${ETH_RPC}"
+bsc = "${BSC_RPC}"
+avalanche = "${AVAX_RPC}"
+mantle = "${MANTLE_RPC}"
+fantom = "${FTM_RPC}"
+sepolia = "${SEPOLIA_RPC}"
+mode="${MODE_RPC}"
+manta="${MANTA_RPC}"
+scroll="${SCROLL_RPC}"
+mantle-testnet = "https://rpc.sepolia.mantle.xyz"
+
+
+[etherscan]
+# Compatible with https://github.com/eth-brownie/brownie/blob/65d2fce72d8fa4e7c68b2ecb3d8d8c68abd376f2/brownie/network/contract.py#L80
+sepolia = { key = "${SEPOLIASCAN_TOKEN}", url="https://api-sepolia.etherscan.io/api?", chain="sepolia" }
+mantle-testnet = { key = "${MANTLE_TOKEN}", url="https://explorer.sepolia.mantle.xyz/api?", chain=5003 }
+mainnet = { key = "${ETHERSCAN_TOKEN}", url="https://api.etherscan.io/api?", chain=1}
+polygon = { key= "${POLYGONSCAN_TOKEN}", url="https://api.polygonscan.com/api?", chain=137}
+bsc = { key= "${BSCSCAN_TOKEN}", url="https://api.bscscan.com/api?", chain=56}
+fantom = { key= "${FTMSCAN_TOKEN}", url="https://api.ftmscan.com/api?", chain=250}
+arbitrum = { key= "${ARBISCAN_TOKEN}", url="https://api.arbiscan.io/api?", chain=42161}
+avalanche = { key= "${SNOWTRACE_TOKEN}", url="https://api.snowtrace.io/api?", chain=43114}
+optimism = { key= "${OPTIMISMSCAN_TOKEN}", url="https://api-optimistic.etherscan.io/api?", chain=10}
+base = { key= "${BASESCAN_TOKEN}", url="https://api.basescan.org/api?", chain=8453}
+xdai = { key= "${GNOSISSCAN_TOKEN}", url="https://api.gnosisscan.io/api?", chain=100}
+mantle = { key = "${MANTLE_TOKEN}", url="https://explorer.mantle.xyz/api?", chain=5000}
+manta = { key = "${MANTA_TOKEN}", url="https://pacific-explorer.manta.network/api?", chain=169}
+mode = { key = "${MODE_TOKEN}", url="https://explorer.mode.network/api?", chain=34443}
+scroll = {key = "${SCROLL_TOKEN}", url="https://api.scrollscan.com/api", chain=534352}
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

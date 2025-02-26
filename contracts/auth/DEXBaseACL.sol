@@ -3,14 +3,12 @@ pragma solidity ^0.8.19;
 
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 
-import "../base/BaseACL.sol";
+import "../base/BaseSimpleACL.sol";
 
 /// @title DEXBaseACL - ACL template for DEX.
 /// @author Cobo Safe Dev Team https://www.cobo.com/
-abstract contract DEXBaseACL is BaseACL {
+abstract contract DEXBaseACL is BaseSimpleACL {
     using EnumerableSet for EnumerableSet.AddressSet;
-
-    bytes32 public constant override TYPE = AuthType.DEX;
 
     EnumerableSet.AddressSet swapInTokenWhitelist;
     EnumerableSet.AddressSet swapOutTokenWhitelist;
@@ -30,43 +28,35 @@ abstract contract DEXBaseACL is BaseACL {
         bool tokenStatus;
     }
 
-    constructor(address _owner, address _caller) BaseACL(_owner, _caller) {}
+    constructor(address _owner, address _caller) BaseSimpleACL(_owner, _caller) {}
+
+    function TYPE() external view virtual override returns (bytes32) {
+        return AuthType.DEX;
+    }
 
     // External set functions.
 
-    function addSwapInTokens(address[] calldata _tokens) external onlyOwner {
+    function addSwapInTokens(address[] calldata _tokens) external virtual onlyOwner {
         for (uint256 i = 0; i < _tokens.length; i++) {
-            address token = _tokens[i];
-            if (swapInTokenWhitelist.add(token)) {
-                emit SwapInTokenAdded(token);
-            }
+            _addSwapInToken(_tokens[i]);
         }
     }
 
-    function removeSwapInTokens(address[] calldata _tokens) external onlyOwner {
+    function removeSwapInTokens(address[] calldata _tokens) external virtual onlyOwner {
         for (uint256 i = 0; i < _tokens.length; i++) {
-            address token = _tokens[i];
-            if (swapInTokenWhitelist.remove(token)) {
-                emit SwapInTokenRemoved(token);
-            }
+            _removeSwapInToken(_tokens[i]);
         }
     }
 
-    function addSwapOutTokens(address[] calldata _tokens) external onlyOwner {
+    function addSwapOutTokens(address[] calldata _tokens) external virtual onlyOwner {
         for (uint256 i = 0; i < _tokens.length; i++) {
-            address token = _tokens[i];
-            if (swapOutTokenWhitelist.add(token)) {
-                emit SwapOutTokenAdded(token);
-            }
+            _addSwapOutToken(_tokens[i]);
         }
     }
 
-    function removeSwapOutTokens(address[] calldata _tokens) external onlyOwner {
+    function removeSwapOutTokens(address[] calldata _tokens) external virtual onlyOwner {
         for (uint256 i = 0; i < _tokens.length; i++) {
-            address token = _tokens[i];
-            if (swapOutTokenWhitelist.remove(token)) {
-                emit SwapOutTokenRemoved(token);
-            }
+            _removeSwapOutToken(_tokens[i]);
         }
     }
 
@@ -100,5 +90,30 @@ abstract contract DEXBaseACL is BaseACL {
     function _swapInOutTokenCheck(address _inToken, address _outToken) internal view {
         _swapInTokenCheck(_inToken);
         _swapOutTokenCheck(_outToken);
+    }
+
+    // Internal set functions.
+    function _addSwapInToken(address _token) internal virtual {
+        if (swapInTokenWhitelist.add(_token)) {
+            emit SwapInTokenAdded(_token);
+        }
+    }
+
+    function _removeSwapInToken(address _token) internal virtual {
+        if (swapInTokenWhitelist.remove(_token)) {
+            emit SwapInTokenRemoved(_token);
+        }
+    }
+
+    function _addSwapOutToken(address _token) internal virtual {
+        if (swapOutTokenWhitelist.add(_token)) {
+            emit SwapOutTokenAdded(_token);
+        }
+    }
+
+    function _removeSwapOutToken(address _token) internal virtual {
+        if (swapOutTokenWhitelist.remove(_token)) {
+            emit SwapOutTokenRemoved(_token);
+        }
     }
 }

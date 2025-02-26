@@ -3,17 +3,17 @@ pragma solidity ^0.8.19;
 
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 
-import "../base/BaseACL.sol";
+import "../base/BaseSimpleAuthorizer.sol";
 
 /// @title TransferAuthorizer - Manages ERC20/ETH transfer permissons.
 /// @author Cobo Safe Dev Team https://www.cobo.com/
 /// @notice This checks token-receiver pairs, no amount is restricted.
-contract TransferAuthorizer is BaseAuthorizer {
+contract TransferAuthorizer is BaseSimpleAuthorizer {
     bytes32 public constant NAME = "TransferAuthorizer";
     uint256 public constant VERSION = 2;
     address public constant ETH = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
+    address public constant ANY = 0xFFfFfFffFFfffFFfFFfFFFFFffFFFffffFfFFFfF;
     bytes32 public constant override TYPE = AuthType.TRANSFER;
-    uint256 public constant flag = AuthFlags.HAS_PRE_CHECK_MASK;
 
     // function transfer(address recipient, uint256 amount)
     bytes4 constant TRANSFER_SELECTOR = 0xa9059cbb;
@@ -34,7 +34,7 @@ contract TransferAuthorizer is BaseAuthorizer {
         address receiver;
     }
 
-    constructor(address _owner, address _caller) BaseAuthorizer(_owner, _caller) {}
+    constructor(address _owner, address _caller) BaseSimpleAuthorizer(_owner, _caller) {}
 
     /// @notice Add token-receiver pairs. Use 0xee..ee for native ETH.
     function addTokenReceivers(TokenReceiver[] calldata tokenReceivers) external onlyOwner {
@@ -91,7 +91,7 @@ contract TransferAuthorizer is BaseAuthorizer {
 
     function _preExecCheck(
         TransactionData calldata transaction
-    ) internal virtual override returns (AuthorizerReturnData memory authData) {
+    ) internal view virtual override returns (AuthorizerReturnData memory authData) {
         if (
             transaction.data.length >= 68 && // 4 + 32 + 32
             bytes4(transaction.data[0:4]) == TRANSFER_SELECTOR &&
@@ -103,24 +103,34 @@ contract TransferAuthorizer is BaseAuthorizer {
             if (tokenToReceivers[token].contains(recipient)) {
                 authData.result = AuthResult.SUCCESS;
                 return authData;
+            } else if (tokenToReceivers[ANY].contains(recipient)) {
+                // allow transfer ANY token to recipient
+                authData.result = AuthResult.SUCCESS;
+                return authData;
+            } else if (tokenToReceivers[token].contains(ANY)) {
+                // allow transfer token to ANY recipient
+                authData.result = AuthResult.SUCCESS;
+                return authData;
             }
         } else if (transaction.data.length == 0 && transaction.value > 0) {
             // Contract call not allowed and token in white list.
-            address recipient = transaction.to;
-            if (tokenToReceivers[ETH].contains(recipient)) {
+            if (tokenToReceivers[ETH].contains(ANY)) {
+                // allow transfer ETH to ANY recipient
                 authData.result = AuthResult.SUCCESS;
                 return authData;
+            } else {
+                address recipient = transaction.to;
+                if (tokenToReceivers[ETH].contains(recipient)) {
+                    authData.result = AuthResult.SUCCESS;
+                    return authData;
+                } else if (tokenToReceivers[ANY].contains(recipient)) {
+                    // allow transfer ETH to recipient
+                    authData.result = AuthResult.SUCCESS;
+                    return authData;
+                }
             }
         }
         authData.result = AuthResult.FAILED;
         authData.message = "transfer not allowed";
-    }
-
-    function _postExecCheck(
-        TransactionData calldata transaction,
-        TransactionResult calldata callResult,
-        AuthorizerReturnData calldata preData
-    ) internal virtual override returns (AuthorizerReturnData memory authData) {
-        authData.result = AuthResult.SUCCESS;
     }
 }

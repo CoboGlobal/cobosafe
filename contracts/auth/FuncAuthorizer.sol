@@ -3,18 +3,17 @@ pragma solidity ^0.8.19;
 
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 
-import "../base/BaseAuthorizer.sol";
+import "../base/BaseSimpleAuthorizer.sol";
 
 /// @title FuncAuthorizer - Manages contract, method pairs which can be accessed by delegates.
 /// @author Cobo Safe Dev Team https://www.cobo.com/
 /// @notice FuncAuthorizer only checks selector. Use ACL if function arguments check is needed.
-contract FuncAuthorizer is BaseAuthorizer {
+contract FuncAuthorizer is BaseSimpleAuthorizer {
     using EnumerableSet for EnumerableSet.Bytes32Set;
     using EnumerableSet for EnumerableSet.AddressSet;
 
     bytes32 public constant NAME = "FuncAuthorizer";
     uint256 public constant VERSION = 1;
-    uint256 public constant flag = AuthFlags.HAS_PRE_CHECK_MASK;
     bytes32 public constant override TYPE = AuthType.FUNC;
 
     /// @dev Tracks the set of contract address.
@@ -30,7 +29,7 @@ contract FuncAuthorizer is BaseAuthorizer {
     event RemoveContractFunc(address indexed _contract, string func, address indexed sender);
     event RemoveContractFuncSig(address indexed _contract, bytes4 indexed funcSig, address indexed sender);
 
-    constructor(address _owner, address _caller) BaseAuthorizer(_owner, _caller) {}
+    constructor(address _owner, address _caller) BaseSimpleAuthorizer(_owner, _caller) {}
 
     function _preExecCheck(
         TransactionData calldata transaction
@@ -61,15 +60,6 @@ contract FuncAuthorizer is BaseAuthorizer {
 
     function _isAllowedSelector(address target, bytes4 selector) internal view returns (bool) {
         return allowContractToFuncs[target].contains(selector);
-    }
-
-    /// @dev Default success.
-    function _postExecCheck(
-        TransactionData calldata transaction,
-        TransactionResult calldata callResult,
-        AuthorizerReturnData calldata preData
-    ) internal view override returns (AuthorizerReturnData memory authData) {
-        authData.result = AuthResult.SUCCESS;
     }
 
     /// @notice Add contract and related function signature list. The function signature should be

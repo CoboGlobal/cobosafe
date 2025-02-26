@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: LGPL-3.0-only
 pragma solidity ^0.8.19;
 
-import "../../base/BaseACL.sol";
+import "../../base/BaseSimpleACL.sol";
 
-contract LidoWithdrawRequestAuthorizer is BaseACL {
+contract LidoWithdrawRequestAuthorizer is BaseSimpleACL {
     bytes32 public constant NAME = "LidoWithdrawRequestAuthorizer";
     uint256 public constant VERSION = 1;
 
     address public constant WithdrawQuene = 0x889edC2eDab5f40e902b864aD4d7AdE8E412F9B1;
 
-    constructor(address _owner, address _caller) BaseACL(_owner, _caller) {}
+    constructor(address _owner, address _caller) BaseSimpleACL(_owner, _caller) {}
 
     function requestWithdrawals(uint256[] calldata _amounts, address _owner) external view {
         if (_owner != address(0)) {

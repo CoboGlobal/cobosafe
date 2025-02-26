@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 import "../../interfaces/IRoleManager.sol";
 import "../base/BaseOwnable.sol";
 
-/// @title TransferAuthorizer - Manages delegate-role mapping.
+/// @title FlatRoleManager - Manages delegate-role mapping.
 /// @author Cobo Safe Dev Team https://www.cobo.com/
 contract FlatRoleManager is IFlatRoleManager, BaseOwnable {
     bytes32 public constant NAME = "FlatRoleManager";
