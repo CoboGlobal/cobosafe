@@ -16,6 +16,8 @@ interface ISafe {
     function getThreshold() external view returns (uint256);
 }
 
+
+
 contract SimpleSafeGuard is Ownable {
     bool public enabled = true;
     address public executor;
@@ -71,4 +73,10 @@ contract SimpleSafeGuard is Ownable {
     }
 
     function checkAfterExecution(bytes32 hash, bool success) external {}
+
+    function supportsInterface(bytes4 interfaceId) external pure returns (bool) {
+        return
+            interfaceId == hex"e6d7a83a" || // type(ITransactionGuard).interfaceId
+            interfaceId == hex"01ffc9a7"; // type(IERC165).interfaceId;
+    }
 }
