@@ -62,6 +62,7 @@ library AuthType {
     bytes32 internal constant APPROVE = "ApproveType";
     bytes32 internal constant REVOKE = "RevokeType";
     bytes32 internal constant DEX = "DexType";
+    bytes32 internal constant FARMING = "FarmingType";
     bytes32 internal constant LENDING = "LendingType";
     bytes32 internal constant COMMON = "CommonType";
     bytes32 internal constant SET = "SetType";
